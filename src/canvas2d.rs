@@ -10,4 +10,9 @@ impl Canvas2d {
       height,
     }
   }
+
+  pub fn render(&self) {
+    println!("{}", self.height);
+    println!("{}", self.width);
+  }
 }

@@ -1,6 +1,7 @@
 mod point;
 mod cubic_curve;
 mod canvas2d;
+mod drawable;
 use point::Point;
 use canvas2d::Canvas2d;
 

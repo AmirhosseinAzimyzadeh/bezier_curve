@@ -10,4 +10,5 @@ fn main() {
 	println!("{}", p.0);
 
 	let canvas = Canvas2d::new(1080, 1920);
+	canvas.render();
 }

@@ -1,4 +1,4 @@
-use crate::{point::Point, drawable::Drawable, canvas2d::Canvas2d};
+use crate::{point::Point, hittable::Hittable};
 
 pub struct CubicCurve (
   pub Point,
@@ -7,9 +7,9 @@ pub struct CubicCurve (
   pub Point,
 );
 
-impl Drawable for CubicCurve {
-  fn draw(&self, canvas: &Canvas2d) {
-    println!("{}", canvas.height);
-    unimplemented!();
+
+impl Hittable for CubicCurve {
+  fn hit(&self, _target_point: Point) -> bool {
+    return true;
   }
 }

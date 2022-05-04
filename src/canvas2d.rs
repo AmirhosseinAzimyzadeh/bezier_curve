@@ -1,4 +1,4 @@
-use crate::{drawable::Drawable, hittable::Hittable};
+use crate::{hittable::Hittable, point::Point};
 
 pub struct Canvas2d {
   pub width: u32,
@@ -15,14 +15,25 @@ impl Canvas2d {
     }
   }
 
-  pub fn add(&mut self, drawable: Box<dyn Hittable>) {
-    self.hittable_objects.push(drawable);
+  pub fn add(&mut self, hittable: Box<dyn Hittable>) {
+    self.hittable_objects.push(hittable);
   }
 
   pub fn render(&self) {
     println!("{}", self.height);
     println!("{}", self.width);
-    // self.drawable_objects.iter().for_each(
+
+    for i in 0..self.width {
+      for j in 0..self.height {
+        self.hittable_objects.iter()
+          .for_each(| hittable | {
+            if hittable.hit(Point(i, j)) {
+              todo!();
+            }
+        });
+      }
+    }
+    // self.hittable.iter().for_each(
     //   |drawable| drawable.draw(self)
     // );
   }

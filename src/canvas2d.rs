@@ -33,8 +33,5 @@ impl Canvas2d {
         });
       }
     }
-    // self.hittable.iter().for_each(
-    //   |drawable| drawable.draw(self)
-    // );
   }
 }

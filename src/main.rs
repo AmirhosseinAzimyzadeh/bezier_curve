@@ -20,5 +20,5 @@ fn main() {
 
 	let mut canvas = Canvas2d::new(1080, 1920);
 	canvas.add(Box::new(curve));
-	// canvas.render();
+	canvas.render();
 }

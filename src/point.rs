@@ -1,14 +1,9 @@
-use crate::drawable::Drawable;
-use crate::canvas2d::Canvas2d;
+use crate::hittable::Hittable;
 
 pub struct Point(pub u32, pub u32);
 
-impl Drawable for Point {
-  fn draw(&self, canvas: &Canvas2d) {
-    // check if point is inside canvas
-    if self.0 > canvas.width && self.1 > canvas.height {
-      return;
-    }
-    
+impl Hittable for Point {
+  fn hit(&self, target_point: Point) -> bool {
+    self.0 == target_point.0 && self.1 == target_point.1
   }
 }

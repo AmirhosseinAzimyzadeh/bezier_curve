@@ -2,6 +2,7 @@ use std::ops::{Add, Mul};
 
 use crate::hittable::Hittable;
 
+#[derive(Debug)]
 pub struct Point(pub u32, pub u32);
 
 impl Hittable for Point {
@@ -18,10 +19,19 @@ impl Add for Point {
   }
 }
 
-impl Mul<u32> for Point {
+impl Mul<f32> for Point {
   type Output = Point;
 
-  fn mul(self, rhs: u32) -> Point {
-    Point(self.0 * rhs, self.1 * rhs)
+  fn mul(self, rhs: f32) -> Point {
+    Point(
+      self.0 * rhs as u32,
+      self.1 * rhs as u32,
+    )
+  }
+}
+
+impl Clone for Point {
+  fn clone(&self) -> Point {
+    Point(self.0, self.1)
   }
 }

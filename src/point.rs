@@ -42,3 +42,13 @@ impl PartialEq for Point {
     (self.0 - other.0).abs() < epsilon && (self.1 - other.1).abs() < epsilon
   }
 }
+
+impl Point {
+  // pub fn get_position_on_canvas(&self, width: f32, height: f32) -> (f32, f32) {
+  //   let x = self.0;
+  //   let y = self.1;
+  //   let x_pos = (x / width) * 100.0;
+  //   let y_pos = (y / height) * 100.0;
+  //   (x_pos, y_pos)
+  // }
+}

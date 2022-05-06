@@ -1,9 +1,9 @@
-use std::ops::{Add, Mul};
+use std::{ops::{Add, Mul}};
 
 use crate::hittable::Hittable;
 
 #[derive(Debug)]
-pub struct Point(pub u32, pub u32);
+pub struct Point(pub f32, pub f32);
 
 impl Hittable for Point {
   fn hit(&self, target_point: Point) -> bool {
@@ -24,8 +24,8 @@ impl Mul<f32> for Point {
 
   fn mul(self, rhs: f32) -> Point {
     Point(
-      self.0 * rhs as u32,
-      self.1 * rhs as u32,
+      self.0 * rhs,
+      self.1 * rhs,
     )
   }
 }
@@ -33,5 +33,12 @@ impl Mul<f32> for Point {
 impl Clone for Point {
   fn clone(&self) -> Point {
     Point(self.0, self.1)
+  }
+}
+
+impl PartialEq for Point {
+  fn eq(&self, other: &Self) -> bool {
+    let epsilon = 10.0;
+    (self.0 - other.0).abs() < epsilon && (self.1 - other.1).abs() < epsilon
   }
 }

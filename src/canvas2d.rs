@@ -1,9 +1,11 @@
-use crate::{hittable::Hittable, point::Point};
+use std::{fs::File, io::Write};
+
+use crate::{ point::Point, cubic_curve::CubicCurve };
 
 pub struct Canvas2d {
   pub width: u32,
   pub height: u32,
-  hittable_objects: Vec<Box<dyn Hittable>>,
+  curves: Vec<CubicCurve>,
 }
 
 impl Canvas2d {
@@ -11,27 +13,51 @@ impl Canvas2d {
     Canvas2d {
       width,
       height,
-      hittable_objects: Vec::new(),
+      curves: Vec::new(),
     }
   }
 
-  pub fn add(&mut self, hittable: Box<dyn Hittable>) {
-    self.hittable_objects.push(hittable);
+  pub fn add(&mut self, curve: CubicCurve) {
+    self.curves.push(curve);
   }
 
   pub fn render(&self) {
     println!("{}", self.height);
     println!("{}", self.width);
 
-    for i in 0..self.width {
-      for j in 0..self.height {
-        self.hittable_objects.iter()
-          .for_each(| hittable | {
-            if hittable.hit(Point(i, j)) {
-              todo!();
+    let mut image_content = String::from(
+      format!("P3\n{} {}\n255\n", self.width, self.height)
+    );
+
+    self.curves.iter().for_each(|curve| {
+      let valid_points = curve.get_points(
+        0.0,
+        1.0,
+        0.01,
+      );
+
+      for i in 0..self.height {
+        for j in 0..self.width {
+          // println!("{}, {}", i, j);
+          valid_points.iter().for_each(|point| {
+            if point.clone() == Point(j as f32, i as f32) {
+              // color
+              image_content.push_str(&format!("255 255 255\t"));
+              println!("inside !! {}, {}", point.0, point.1);
+              println!("next !! {}, {}", j, i);
+            } else {
+              image_content.push_str(&format!("0 0 0\t"));
             }
-        });
+          });
+        }
+        image_content.push_str("\n");
       }
-    }
+    });
+
+    let mut f = File::create("output.ppm")
+      .expect("Unable to create file");
+    f.write(image_content.as_bytes())
+      .expect("Unable to write to file");
+    
   }
 }

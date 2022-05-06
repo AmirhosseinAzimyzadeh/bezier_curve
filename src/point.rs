@@ -38,8 +38,8 @@ impl Clone for Point {
 
 impl PartialEq for Point {
   fn eq(&self, other: &Self) -> bool {
-    let epsilon = 10.0;
-    (self.0 - other.0).abs() < epsilon && (self.1 - other.1).abs() < epsilon
+    // let epsilon = 0.01;
+    self.0.round() == other.0.round() && self.1.round() == other.1.round()
   }
 }
 

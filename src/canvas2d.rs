@@ -26,25 +26,48 @@ impl Canvas2d {
     println!("{}", self.width);
 
     let mut image_content = String::from(
-      format!("P3\n{} {}\n255\n", self.width, self.height)
+      format!("P2\n{} {}\n15\n", self.width, self.height)
     );
+
+    let mut hit_count = 0;
+    let mut number_of_valid_points = 0;
 
     self.curves.iter().for_each(|curve| {
       let valid_points = curve.get_points(
         0.0,
         1.0,
-        0.01,
+        0.001,
       );
 
-      for i in 0..self.height {
-        for j in 0..self.width {
+      number_of_valid_points = valid_points.len();
+
+      for j in 0..self.height {
+        for i in 0..self.width {
           // println!("{}, {}", i, j);
+          // check if is key point
+          if curve.0 == Point(j as f32, i as f32) {
+            println!("point 0")
+          }
+
+          if curve.1 == Point(j as f32, i as f32) {
+            println!("point 1")
+          }
+
+          if curve.2 == Point(j as f32, i as f32) {
+            println!("point 2")
+          }
+
+          if curve.3 == Point(j as f32, i as f32) {
+            println!("point 3")
+          }
+
           valid_points.iter().for_each(|point| {
             if point.clone() == Point(j as f32, i as f32) {
+              hit_count += 1;
               // color
-              image_content.push_str(&format!("255 255 255\t"));
-              println!("inside !! {}, {}", point.0, point.1);
-              println!("next !! {}, {}", j, i);
+              image_content.push_str(&format!("15 15 15\t"));
+              // println!("inside !! {}, {}", point.0, point.1);
+              // println!("next !! {}, {}", j, i);
             } else {
               image_content.push_str(&format!("0 0 0\t"));
             }
@@ -54,6 +77,8 @@ impl Canvas2d {
       }
     });
 
+    println!("hit_count: {}", hit_count);
+    println!("number of valid points {}", number_of_valid_points);
     let mut f = File::create("output.ppm")
       .expect("Unable to create file");
     f.write(image_content.as_bytes())

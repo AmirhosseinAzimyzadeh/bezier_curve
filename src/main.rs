@@ -11,14 +11,17 @@ fn main() {
 	let p = Point(1.0, 2.0);
 	println!("{}", p.0);
 
+	let width = 500.0;
+	let height = 500.0;
+
 	let curve = CubicCurve (
 		Point(0.0, 0.0),
-		Point(0.0, 100.0),
-		Point(100.0, 100.0),
-		Point(100.0, 0.0),
+		Point(0.0, width - 1.0),
+		Point(height - 1.0, 0.0),
+		Point(height - 1.0, width - 1.0),
 	);
 
-	let mut canvas = Canvas2d::new(100, 100);
+	let mut canvas = Canvas2d::new(width as u32, height as u32);
 	canvas.add(curve);
 	canvas.render();
 }

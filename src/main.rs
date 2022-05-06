@@ -12,8 +12,8 @@ fn main() {
 	println!("{}", p.0);
 
 	let curve = CubicCurve (
-		Point(0.0, 100.0),
 		Point(0.0, 0.0),
+		Point(0.0, 100.0),
 		Point(100.0, 100.0),
 		Point(100.0, 0.0),
 	);

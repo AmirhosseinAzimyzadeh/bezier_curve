@@ -24,6 +24,17 @@ impl CubicCurve {
       self.1.clone() * 3.0 * one_minus_t_2 * t +
       self.2.clone() * 3.0 * one_minus_t * t * t +
       self.3.clone() * t * t * t;
+    println!("{}, {}", new_point.0, new_point.1);
     Point(new_point.0, new_point.1)
+  }
+
+  pub fn get_points(&self, from: f32, to: f32, step: f32) -> Vec<Point> {
+    let mut points = Vec::new();
+    let mut t = from;
+    while t < to {
+      points.push(self.get_point_at(t));
+      t += step;
+    }
+    points
   }
 }

@@ -46,19 +46,23 @@ impl Canvas2d {
           // println!("{}, {}", i, j);
           // check if is key point
           if curve.0 == Point(j as f32, i as f32) {
-            println!("point 0")
+            image_content.push_str(&format!("15 0 0\t"));
+            break;
           }
 
           if curve.1 == Point(j as f32, i as f32) {
-            println!("point 1")
+            image_content.push_str(&format!("15 0 0\t"));
+            break;
           }
 
           if curve.2 == Point(j as f32, i as f32) {
-            println!("point 2")
+            image_content.push_str(&format!("15 0 0\t"));
+            break;
           }
 
           if curve.3 == Point(j as f32, i as f32) {
-            println!("point 3")
+            image_content.push_str(&format!("15 0 0\t"));
+            break;
           }
 
           valid_points.iter().for_each(|point| {

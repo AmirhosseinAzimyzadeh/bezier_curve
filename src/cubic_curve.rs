@@ -24,7 +24,7 @@ impl CubicCurve {
       self.1.clone() * 3.0 * one_minus_t_2 * t +
       self.2.clone() * 3.0 * one_minus_t * t * t +
       self.3.clone() * t * t * t;
-    println!("{}, {}", new_point.0, new_point.1);
+    // println!("{}, {}", new_point.0, new_point.1);
     Point(new_point.0, new_point.1)
   }
 

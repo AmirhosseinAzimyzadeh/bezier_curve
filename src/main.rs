@@ -11,8 +11,8 @@ fn main() {
 	let p = Point(1.0, 2.0);
 	println!("{}", p.0);
 
-	let width = 500.0;
-	let height = 500.0;
+	let width = 10.0;
+	let height = 10.0;
 
 	let curve = CubicCurve (
 		Point(0.0, 0.0),

@@ -29,60 +29,27 @@ impl Canvas2d {
       format!("P2\n{} {}\n15\n", self.width, self.height)
     );
 
-    let mut hit_count = 0;
-    let mut number_of_valid_points = 0;
+    let valid_points = self.curves.get(0).unwrap()
+      .get_points(0.0, 1.0, 0.1);
 
-    self.curves.iter().for_each(|curve| {
-      let valid_points = curve.get_points(
-        0.0,
-        1.0,
-        0.001,
-      );
+    // iterating over pixels
+    for pixel_number in 0..(self.width * self.height) {
+      let x = (pixel_number % self.width) as f32;
+      let y = (pixel_number / self.width) as f32;
+      
+      // search in valid points
+      match valid_points.iter().find(|point| {**point == Point(x, y)}) {
+          Some(_) => { image_content.push_str("15 15 15 ")  },
+          None => { image_content.push_str("0 0 0 ") },
+      };
 
-      number_of_valid_points = valid_points.len();
-
-      for j in 0..self.height {
-        for i in 0..self.width {
-          // println!("{}, {}", i, j);
-          // check if is key point
-          if curve.0 == Point(j as f32, i as f32) {
-            image_content.push_str(&format!("15 0 0\t"));
-            break;
-          }
-
-          if curve.1 == Point(j as f32, i as f32) {
-            image_content.push_str(&format!("15 0 0\t"));
-            break;
-          }
-
-          if curve.2 == Point(j as f32, i as f32) {
-            image_content.push_str(&format!("15 0 0\t"));
-            break;
-          }
-
-          if curve.3 == Point(j as f32, i as f32) {
-            image_content.push_str(&format!("15 0 0\t"));
-            break;
-          }
-
-          valid_points.iter().for_each(|point| {
-            if point.clone() == Point(j as f32, i as f32) {
-              hit_count += 1;
-              // color
-              image_content.push_str(&format!("15 15 15\t"));
-              // println!("inside !! {}, {}", point.0, point.1);
-              // println!("next !! {}, {}", j, i);
-            } else {
-              image_content.push_str(&format!("0 0 0\t"));
-            }
-          });
-        }
+      if pixel_number % self.width == 0 {
         image_content.push_str("\n");
       }
-    });
+    }
 
-    println!("hit_count: {}", hit_count);
-    println!("number of valid points {}", number_of_valid_points);
+
+
     let mut f = File::create("output.ppm")
       .expect("Unable to create file");
     f.write(image_content.as_bytes())

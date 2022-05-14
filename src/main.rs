@@ -16,9 +16,9 @@ fn main() {
 
 	let curve = CubicCurve (
 		Point(0.0, 0.0),
-		Point(0.0, width - 1.0),
-		Point(height - 1.0, 0.0),
-		Point(height - 1.0, width - 1.0),
+		Point(0.0, width - 100.0),
+		Point(height - 100.0, 0.0),
+		Point(height - 100.0, width - 100.0),
 	);
 
 	let mut canvas = Canvas2d::new(width as u32, height as u32);

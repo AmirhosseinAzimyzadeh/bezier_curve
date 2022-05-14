@@ -25,8 +25,9 @@ impl Canvas2d {
     println!("{}", self.height);
     println!("{}", self.width);
 
+    // create ppm header
     let mut image_content = String::from(
-      format!("P2\n{} {}\n15\n", self.width, self.height)
+      format!("P2\n{} {}\n255\n", self.width, self.height)
     );
 
     let valid_points = self.curves.get(0).unwrap()
@@ -38,10 +39,12 @@ impl Canvas2d {
       let y = (pixel_number / self.width) as f32;
       
       // search in valid points
-      match valid_points.iter().find(|point| {**point == Point(x, y)}) {
-          Some(_) => { image_content.push_str("15 15 15 ")  },
-          None => { image_content.push_str("0 0 0 ") },
-      };
+      // match valid_points.iter().find(|point| {**point == Point(x, y)}) {
+      //     Some(_) => { image_content.push_str("15 15 15 ")  },
+      //     None => { image_content.push_str("0 0 0 ") },
+      // };
+
+      image_content.push_str("255 255 255 ");
 
       if pixel_number % self.width == 0 {
         image_content.push_str("\n");

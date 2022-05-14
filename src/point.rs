@@ -38,16 +38,7 @@ impl Clone for Point {
 
 impl PartialEq for Point {
   fn eq(&self, other: &Self) -> bool {
-    self.0.round() == other.0.round() && self.1.round() == other.1.round()
+    let epsilon: f32 = 0.5;
+    (self.0 - other.0).abs() < epsilon && (self.1 - other.1).abs() < epsilon
   }
-}
-
-impl Point {
-  // pub fn get_position_on_canvas(&self, width: f32, height: f32) -> (f32, f32) {
-  //   let x = self.0;
-  //   let y = self.1;
-  //   let x_pos = (x / width) * 100.0;
-  //   let y_pos = (y / height) * 100.0;
-  //   (x_pos, y_pos)
-  // }
 }

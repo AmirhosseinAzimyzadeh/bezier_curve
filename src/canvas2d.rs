@@ -1,6 +1,6 @@
 use std::{fs::File, io::Write};
 
-use crate::{ point::Point, cubic_curve::CubicCurve };
+use crate::{ point::Point, cubic_curve::{CubicCurve, self} };
 
 pub struct Canvas2d {
   pub width: u32,
@@ -37,16 +37,37 @@ impl Canvas2d {
     for pixel_number in 0..(self.width * self.height) {
       let x = (pixel_number % self.width) as f32;
       let y = (pixel_number / self.width) as f32;
+
+      let current_point = Point(x, y);
       
+      if current_point == self.curves.get(0).unwrap().0 {
+        image_content.push_str("255 0 0 ");
+        break;
+      }
+      
+      if current_point == self.curves.get(0).unwrap().1 {
+        image_content.push_str("255 0 0 ");
+        break;
+      }
+
+      if current_point == self.curves.get(0).unwrap().2 {
+        image_content.push_str("255 0 0 ");
+        break;
+      }
+
+      if current_point == self.curves.get(0).unwrap().3 {
+        image_content.push_str("255 0 0 ");
+        break;
+      }
       // search in valid points
-      // match valid_points.iter().find(|point| {**point == Point(x, y)}) {
-      //     Some(_) => { image_content.push_str("15 15 15 ")  },
-      //     None => { image_content.push_str("0 0 0 ") },
-      // };
+      match valid_points.iter().find(|point| {**point == current_point}) {
+          Some(_) => { image_content.push_str("0 0 0 ")  },
+          None => { image_content.push_str("255 255 255 ") },
+      };
 
-      image_content.push_str("255 255 255 ");
+      // image_content.push_str("255 255 255 ");
 
-      if pixel_number % self.width == 0 {
+      if (pixel_number + 1) % self.width == 0 {
         image_content.push_str("\n");
       }
     }

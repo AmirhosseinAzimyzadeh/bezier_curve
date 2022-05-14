@@ -15,9 +15,9 @@ fn main() {
 	// define cubic curve
 	let curve = CubicCurve (
 		Point(0.0, 0.0),
-		Point(0.0, width - 100.0),
-		Point(height - 100.0, 0.0),
-		Point(height - 100.0, width - 100.0),
+		Point(0.0, width - 1.0),
+		Point(height - 1.0, 0.0),
+		Point(height - 1.0, width - 1.0),
 	);
 
 	// create canvas

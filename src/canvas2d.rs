@@ -1,6 +1,6 @@
 use std::{fs::File, io::Write};
 
-use crate::{ point::Point, cubic_curve::{CubicCurve, self} };
+use crate::{ point::Point, cubic_curve::{CubicCurve}};
 
 pub struct Canvas2d {
   pub width: u32,

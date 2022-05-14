@@ -39,31 +39,20 @@ impl Canvas2d {
       let y = (pixel_number / self.width) as f32;
 
       let current_point = Point(x, y);
-      
-      if current_point == self.curves.get(0).unwrap().0 {
-        image_content.push_str("255 0 0 ");
-        break;
-      }
-      
-      if current_point == self.curves.get(0).unwrap().1 {
-        image_content.push_str("255 0 0 ");
-        break;
-      }
-
-      if current_point == self.curves.get(0).unwrap().2 {
-        image_content.push_str("255 0 0 ");
-        break;
-      }
-
-      if current_point == self.curves.get(0).unwrap().3 {
-        image_content.push_str("255 0 0 ");
-        break;
-      }
       // search in valid points
-      match valid_points.iter().find(|point| {**point == current_point}) {
-          Some(_) => { image_content.push_str("0 0 0 ")  },
-          None => { image_content.push_str("255 255 255 ") },
-      };
+      // match valid_points.iter().find(|point| {**point == current_point}) {
+      //     Some(_) => {
+      //       println!("at => {}, {}", x, y);
+      //       image_content.push_str("0 0 0 ")
+      //     },
+      //     None => { image_content.push_str("255 255 255 ") },
+      // };
+
+      if x % 2.0 == 1.0 {
+        image_content.push_str("255 ");
+      } else {
+        image_content.push_str("0 ");
+      }
 
       // image_content.push_str("255 255 255 ");
 

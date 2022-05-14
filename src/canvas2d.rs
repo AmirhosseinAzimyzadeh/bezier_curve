@@ -31,7 +31,7 @@ impl Canvas2d {
     );
 
     let valid_points = self.curves.get(0).unwrap()
-      .get_points(0.0, 1.0, 0.1);
+      .get_points(0.0, 1.0, 0.001);
 
     // iterating over pixels
     for pixel_number in 0..(self.width * self.height) {
@@ -40,21 +40,13 @@ impl Canvas2d {
 
       let current_point = Point(x, y);
       // search in valid points
-      // match valid_points.iter().find(|point| {**point == current_point}) {
-      //     Some(_) => {
-      //       println!("at => {}, {}", x, y);
-      //       image_content.push_str("0 0 0 ")
-      //     },
-      //     None => { image_content.push_str("255 255 255 ") },
-      // };
-
-      if x % 2.0 == 1.0 {
-        image_content.push_str("255 ");
-      } else {
-        image_content.push_str("0 ");
-      }
-
-      // image_content.push_str("255 255 255 ");
+      match valid_points.iter().find(|point| {**point == current_point}) {
+          Some(_) => {
+            println!("at => {}, {}", x, y);
+            image_content.push_str("0 ")
+          },
+          None => { image_content.push_str("255 ") },
+      };
 
       if (pixel_number + 1) % self.width == 0 {
         image_content.push_str("\n");

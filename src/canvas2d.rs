@@ -41,10 +41,7 @@ impl Canvas2d {
       let current_point = Point(x, y);
       // search in valid points
       match valid_points.iter().find(|point| {**point == current_point}) {
-          Some(_) => {
-            println!("at => {}, {}", x, y);
-            image_content.push_str("0 ")
-          },
+          Some(_) => { image_content.push_str("0 ") },
           None => { image_content.push_str("255 ") },
       };
 
